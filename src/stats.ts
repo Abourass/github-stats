@@ -1,10 +1,11 @@
 import { GitHubClient } from './github-client.js';
-import type { LanguageStats, StatsData } from './types.js';
+import type { LanguageStats, StatsData, RepoBreakdown } from './types.js';
 
 export interface StatsOptions {
   excludeRepos?: Set<string>;
   excludeLangs?: Set<string>;
   ignoreForkedRepos?: boolean;
+  collectDetailedBreakdown?: boolean;
 }
 
 export class Stats {
@@ -13,6 +14,7 @@ export class Stats {
   private excludeRepos: Set<string>;
   private excludeLangs: Set<string>;
   private ignoreForkedRepos: boolean;
+  private collectDetailedBreakdown: boolean;
 
   constructor(username: string, accessToken: string, options: StatsOptions = {}) {
     this.username = username;
@@ -20,6 +22,7 @@ export class Stats {
     this.excludeRepos = options.excludeRepos || new Set();
     this.excludeLangs = options.excludeLangs || new Set();
     this.ignoreForkedRepos = options.ignoreForkedRepos || false;
+    this.collectDetailedBreakdown = options.collectDetailedBreakdown || false;
   }
 
   /**
@@ -129,6 +132,12 @@ export class Stats {
     // Get repository views
     const views = await this.calculateViews(Array.from(repos));
 
+    // Collect detailed breakdown if requested
+    let repoBreakdowns: RepoBreakdown[] | undefined;
+    if (this.collectDetailedBreakdown) {
+      repoBreakdowns = await this.collectRepoBreakdowns(Array.from(repos));
+    }
+
     return {
       name,
       stargazers,
@@ -138,7 +147,77 @@ export class Stats {
       views,
       repos: Array.from(repos),
       languages,
+      repoBreakdowns,
     };
+  }
+
+  /**
+   * Collect detailed breakdown for each repository
+   */
+  private async collectRepoBreakdowns(repos: string[]): Promise<RepoBreakdown[]> {
+    const breakdowns: RepoBreakdown[] = [];
+
+    // Process repos in batches
+    const batchSize = 5;
+    for (let i = 0; i < repos.length; i += batchSize) {
+      const batch = repos.slice(i, i + batchSize);
+      
+      const results = await Promise.all(
+        batch.map(async (repoName) => {
+          // Get repo details
+          const repoData = await this.client.getRepositoryDetails(repoName);
+          if (!repoData) return null;
+
+          // Get contributor stats for this repo
+          const contributorStats = await this.client.getContributorStats(repoName);
+          let additions = 0;
+          let deletions = 0;
+          let contributions = 0;
+
+          for (const contributor of contributorStats) {
+            if (contributor.author && contributor.author.login === this.username) {
+              for (const week of contributor.weeks) {
+                additions += week.a;
+                deletions += week.d;
+                contributions += week.c;
+              }
+            }
+          }
+
+          // Get views
+          const views = await this.client.getRepositoryViews(repoName);
+
+          // Get languages for this repo
+          const repoLanguages: LanguageStats = {};
+          const langData = await this.client.getRepositoryLanguages(repoName);
+          const total = Object.values(langData).reduce((sum: number, size) => sum + size, 0);
+          
+          for (const [langName, langSize] of Object.entries(langData)) {
+            repoLanguages[langName] = {
+              size: langSize,
+              occurrences: 1,
+              color: null,
+              prop: total > 0 ? (langSize / total) * 100 : 0,
+            };
+          }
+
+          return {
+            name: repoName,
+            stars: repoData.stargazers_count,
+            forks: repoData.forks_count,
+            contributions,
+            additions,
+            deletions,
+            views,
+            languages: repoLanguages,
+          };
+        })
+      );
+
+      breakdowns.push(...results.filter((r): r is RepoBreakdown => r !== null));
+    }
+
+    return breakdowns.sort((a, b) => b.stars - a.stars);
   }
 
   /**

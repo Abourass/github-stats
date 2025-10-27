@@ -43,6 +43,7 @@
     "node": ">=20.0.0"
   },
   "github-stats": {
-    "omitRepos": ["AssetVal/AssetVal"]
+    "omitRepos": ["AssetVal/AssetVal"],
+    "extra-stats": true
   }
 }

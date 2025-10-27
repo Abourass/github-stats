@@ -2,6 +2,7 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import { Stats } from './stats.js';
 import { generateOverview, generateLanguages } from './templates/index.js';
+import { generateHTMLBreakdown } from './templates/html-breakdown.js';
 import * as dotenv from 'dotenv';
 
 // Load environment variables
@@ -10,20 +11,29 @@ dotenv.config();
 interface PackageJsonConfig {
   'github-stats'?: {
     omitRepos?: string[];
+    'extra-stats'?: boolean;
   };
 }
 
-async function loadPackageJsonConfig(): Promise<Set<string>> {
+async function loadPackageJsonConfig(): Promise<{ omitRepos: Set<string>; extraStats: boolean }> {
   try {
     const packageJsonPath = path.join(process.cwd(), 'package.json');
     const content = await fs.readFile(packageJsonPath, 'utf-8');
     const packageJson: PackageJsonConfig = JSON.parse(content);
     
     const omitRepos = packageJson['github-stats']?.omitRepos || [];
-    return new Set(omitRepos);
+    const extraStats = packageJson['github-stats']?.['extra-stats'] || false;
+    
+    return {
+      omitRepos: new Set(omitRepos),
+      extraStats,
+    };
   } catch (error) {
-    // If package.json doesn't exist or can't be read, return empty set
-    return new Set();
+    // If package.json doesn't exist or can't be read, return defaults
+    return {
+      omitRepos: new Set(),
+      extraStats: false,
+    };
   }
 }
 
@@ -51,7 +61,9 @@ async function main(): Promise<void> {
   }
 
   // Load omitRepos from package.json
-  const packageJsonOmitRepos = await loadPackageJsonConfig();
+  const config = await loadPackageJsonConfig();
+  const packageJsonOmitRepos = config.omitRepos;
+  const extraStats = config.extraStats;
 
   // Parse excluded repos from environment variable
   const excludedReposStr = process.env.EXCLUDED || '';
@@ -83,6 +95,9 @@ async function main(): Promise<void> {
   if (ignoreForkedRepos) {
     console.log(`   Ignoring forked repositories`);
   }
+  if (extraStats) {
+    console.log(`   📊 Extra stats breakdown: ENABLED`);
+  }
   console.log();
 
   // Create stats instance
@@ -90,6 +105,7 @@ async function main(): Promise<void> {
     excludeRepos: excludedRepos,
     excludeLangs: excludedLangs,
     ignoreForkedRepos,
+    collectDetailedBreakdown: extraStats,
   });
 
   // Collect statistics
@@ -128,6 +144,16 @@ async function main(): Promise<void> {
   console.log('✅ SVG files generated successfully!');
   console.log('   📄 generated/overview.svg');
   console.log('   📄 generated/languages.svg');
+
+  // Generate HTML breakdown if extra-stats is enabled
+  if (extraStats && data.repoBreakdowns) {
+    console.log('\n📊 Generating detailed HTML breakdown...');
+    const htmlBreakdown = generateHTMLBreakdown(data);
+    await fs.writeFile(path.join('generated', 'breakdown.html'), htmlBreakdown, 'utf-8');
+    console.log('✅ HTML breakdown generated successfully!');
+    console.log('   📄 generated/breakdown.html');
+  }
+
   console.log();
   console.log('🎉 Done!');
 }

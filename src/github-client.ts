@@ -232,6 +232,32 @@ export class GitHubClient {
     }
   }
 
+  /**
+   * Get repository details
+   */
+  async getRepositoryDetails(repoFullName: string): Promise<any> {
+    const [owner, repo] = repoFullName.split('/');
+    try {
+      const { data } = await this.octokit.repos.get({ owner, repo });
+      return data;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Get repository languages
+   */
+  async getRepositoryLanguages(repoFullName: string): Promise<Record<string, number>> {
+    const [owner, repo] = repoFullName.split('/');
+    try {
+      const { data } = await this.octokit.repos.listLanguages({ owner, repo });
+      return data;
+    } catch {
+      return {};
+    }
+  }
+
   private sleep(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }

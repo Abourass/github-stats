@@ -938,6 +938,32 @@ In addition to using the `EXCLUDED` environment variable, you can configure repo
 }
 ```
 
+### Detailed HTML Breakdown
+
+Enable a comprehensive HTML page that breaks down your stats by repository:
+
+```json
+{
+  "github-stats": {
+    "omitRepos": ["AssetVal/AssetVal"],
+    "extra-stats": true
+  }
+}
+```
+
+When `extra-stats` is set to `true`, the generator will create an additional `breakdown.html` file in the `generated/` directory with:
+
+- **Repository-by-repository breakdown** of all your stats
+- **Per-repo metrics**: stars, forks, commits, lines changed, views
+- **Language distribution** for each repository
+- **Beautiful responsive design** with gradient backgrounds
+- **Interactive cards** with hover effects
+- **Sortable data** (repos sorted by stars by default)
+
+**View your breakdown at:** `https://yourusername.github.io/github-stats/generated/breakdown.html`
+
+> **Note**: Enabling `extra-stats` will make the generation process slower as it fetches detailed information for each repository. Use this when you want deep insights into your contributions.
+
 **Benefits:**
 - ✅ Version controlled with your code
 - ✅ No need to configure repository secrets for exclusions

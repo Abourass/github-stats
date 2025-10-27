@@ -84,6 +84,17 @@ export interface LanguageStats {
   };
 }
 
+export interface RepoBreakdown {
+  name: string;
+  stars: number;
+  forks: number;
+  contributions: number;
+  additions: number;
+  deletions: number;
+  views: number;
+  languages: LanguageStats;
+}
+
 export interface StatsData {
   name: string;
   stargazers: number;
@@ -93,4 +104,5 @@ export interface StatsData {
   views: number;
   repos: string[];
   languages: LanguageStats;
+  repoBreakdowns?: RepoBreakdown[]; // Optional detailed breakdown
 }
