@@ -43,7 +43,14 @@
     "node": ">=20.0.0"
   },
   "github-stats": {
-    "omitRepos": ["AssetVal/AssetVal", "chakrimsc/Legacy-WebApp", "RockyMtGQ/SnapShot-iOS-app", "RockyMtGQ/SnapShot-Android-app"],
+    "omitRepos": [
+      "AssetVal/AssetVal",
+      "chakrimsc/Legacy-WebApp",
+      "RockyMtGQ/SnapShot-iOS-app",
+      "RockyMtGQ/SnapShot-Android-app",
+      "Abourass/avm-snapshot-app-android",
+      "AssetVal/android-snapshot-update"
+    ],
     "extra-stats": true
   }
 }
