@@ -18,10 +18,8 @@ jobs:
     # Check out repository under $GITHUB_WORKSPACE, so the job can access it
     - uses: actions/checkout@v3
 
-    # Set up pnpm
+    # Set up pnpm (version from package.json packageManager field)
     - uses: pnpm/action-setup@v4
-      with:
-        version: 9
 
     # Set up Node.js 20
     - name: Set up Node.js 20
