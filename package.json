@@ -43,7 +43,7 @@
     "node": ">=20.0.0"
   },
   "github-stats": {
-    "omitRepos": ["AssetVal/AssetVal", "chakrimsc/Legacy-WebApp"],
+    "omitRepos": ["AssetVal/AssetVal", "chakrimsc/Legacy-WebApp", "RockyMtGQ/SnapShot-iOS-app", "RockyMtGQ/SnapShot-Android-app"],
     "extra-stats": true
   }
 }
