@@ -7,6 +7,26 @@ import * as dotenv from 'dotenv';
 // Load environment variables
 dotenv.config();
 
+interface PackageJsonConfig {
+  'github-stats'?: {
+    omitRepos?: string[];
+  };
+}
+
+async function loadPackageJsonConfig(): Promise<Set<string>> {
+  try {
+    const packageJsonPath = path.join(process.cwd(), 'package.json');
+    const content = await fs.readFile(packageJsonPath, 'utf-8');
+    const packageJson: PackageJsonConfig = JSON.parse(content);
+    
+    const omitRepos = packageJson['github-stats']?.omitRepos || [];
+    return new Set(omitRepos);
+  } catch (error) {
+    // If package.json doesn't exist or can't be read, return empty set
+    return new Set();
+  }
+}
+
 async function ensureGeneratedFolder(): Promise<void> {
   const generatedPath = path.join(process.cwd(), 'generated');
   try {
@@ -30,11 +50,17 @@ async function main(): Promise<void> {
     throw new Error('GITHUB_ACTOR environment variable must be set!');
   }
 
-  // Parse excluded repos
+  // Load omitRepos from package.json
+  const packageJsonOmitRepos = await loadPackageJsonConfig();
+
+  // Parse excluded repos from environment variable
   const excludedReposStr = process.env.EXCLUDED || '';
-  const excludedRepos = excludedReposStr
+  const envExcludedRepos = excludedReposStr
     ? new Set(excludedReposStr.split(',').map((s: string) => s.trim()))
     : new Set<string>();
+
+  // Combine both sources of excluded repos
+  const excludedRepos = new Set([...packageJsonOmitRepos, ...envExcludedRepos]);
 
   // Parse excluded languages
   const excludedLangsStr = process.env.EXCLUDED_LANGS || '';
@@ -48,7 +74,8 @@ async function main(): Promise<void> {
 
   console.log(`📊 Collecting stats for: ${username}`);
   if (excludedRepos.size > 0) {
-    console.log(`   Excluding ${excludedRepos.size} repositories`);
+    console.log(`   Excluding ${excludedRepos.size} repositories:`);
+    excludedRepos.forEach((repo) => console.log(`     - ${repo}`));
   }
   if (excludedLangs.size > 0) {
     console.log(`   Excluding languages: ${Array.from(excludedLangs).join(', ')}`);

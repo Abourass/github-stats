@@ -909,7 +909,47 @@ This project is licensed under the **GNU General Public License v3.0** - see the
 - **GitHub Octicons** for beautiful icons
 - **Community Contributors** for improvements and bug fixes
 
-## 💖 Support
+## � Advanced Configuration
+
+### Excluding Repositories via package.json
+
+In addition to using the `EXCLUDED` environment variable, you can configure repository exclusions directly in your `package.json` file:
+
+```json
+{
+  "name": "github-stats",
+  "version": "2.0.0",
+  "github-stats": {
+    "omitRepos": [
+      "owner/repo-name",
+      "another-owner/another-repo"
+    ]
+  }
+}
+```
+
+**Example:**
+
+```json
+{
+  "github-stats": {
+    "omitRepos": ["AssetVal/AssetVal", "username/test-repo"]
+  }
+}
+```
+
+**Benefits:**
+- ✅ Version controlled with your code
+- ✅ No need to configure repository secrets for exclusions
+- ✅ Combines with `EXCLUDED` environment variable (both are applied)
+- ✅ Easier to manage and review multiple exclusions
+- ✅ Automatically read when the stats are generated
+
+The `omitRepos` array should contain repository names in `owner/repo` format. These repositories will be excluded from all statistics calculations including stars, forks, contributions, lines changed, and language statistics.
+
+> **Note**: Repositories specified in both `package.json` (`omitRepos`) and the `EXCLUDED` environment variable will be combined. There's no conflict if a repository appears in both places.
+
+## �💖 Support
 
 If you find this project useful:
 
