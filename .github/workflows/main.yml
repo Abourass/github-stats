@@ -18,25 +18,27 @@ jobs:
     # Check out repository under $GITHUB_WORKSPACE, so the job can access it
     - uses: actions/checkout@v3
 
-    # Run using Python 3.8 for consistency and aiohttp
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v4
+    # Set up pnpm
+    - uses: pnpm/action-setup@v4
       with:
-        python-version: '3.8'
-        architecture: 'x64'
-        cache: 'pip'
+        version: 9
 
-    # Install dependencies with `pip`
-    - name: Install requirements
-      run: |
-        python3 -m pip install --upgrade pip setuptools wheel
-        python3 -m pip install -r requirements.txt
+    # Set up Node.js 20
+    - name: Set up Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'pnpm'
+
+    # Install dependencies with pnpm
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
 
     # Generate all statistics images
     - name: Generate images
       run: |
-        python3 --version
-        python3 generate_images.py
+        node --version
+        pnpm start
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
