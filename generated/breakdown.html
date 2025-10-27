@@ -1,0 +1,5979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antonio B. - GitHub Stats Breakdown</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .summary-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .summary-card h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .summary-card .value {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .section-title {
+      background: white;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title h2 {
+      font-size: 1.8rem;
+      color: #333;
+    }
+
+    .repo-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .repo-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .repo-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .repo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .repo-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #0366d6;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .repo-name:hover {
+      text-decoration: underline;
+    }
+
+    .repo-badges {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge-stars {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .badge-forks {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .badge-commits {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .badge-views {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .repo-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .additions {
+      color: #28a745;
+    }
+
+    .deletions {
+      color: #dc3545;
+    }
+
+    .languages {
+      margin-top: 1rem;
+    }
+
+    .languages-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: #666;
+    }
+
+    .language-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .language-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .language-name {
+      min-width: 100px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .language-progress {
+      flex: 1;
+      height: 8px;
+      background: #e1e4e8;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .language-fill {
+      height: 100%;
+      background: #667eea;
+      transition: width 0.3s;
+    }
+
+    .language-percent {
+      min-width: 50px;
+      text-align: right;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    footer p {
+      color: #666;
+    }
+
+    footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .repo-header {
+        flex-direction: column;
+      }
+
+      .summary-card .value {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📊 Antonio B.</h1>
+      <p class="subtitle">Detailed GitHub Statistics Breakdown</p>
+    </header>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <h3>Total Stars</h3>
+        <div class="value">⭐ 73</div>
+      </div>
+      <div class="summary-card">
+        <h3>Total Forks</h3>
+        <div class="value">🍴 23</div>
+      </div>
+      <div class="summary-card">
+        <h3>Contributions</h3>
+        <div class="value">📈 14,823</div>
+      </div>
+      <div class="summary-card">
+        <h3>Repositories</h3>
+        <div class="value">📦 104</div>
+      </div>
+      <div class="summary-card">
+        <h3>Lines Added</h3>
+        <div class="value additions">+3,682,984</div>
+      </div>
+      <div class="summary-card">
+        <h3>Lines Deleted</h3>
+        <div class="value deletions">-1,284,218</div>
+      </div>
+      <div class="summary-card">
+        <h3>Lines Changed</h3>
+        <div class="value">4,967,202</div>
+      </div>
+      <div class="summary-card">
+        <h3>Views (14d)</h3>
+        <div class="value">👀 199</div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>🗂️ Repository Breakdown (104 repos)</h2>
+    </div>
+
+    <div class="repo-grid">
+      
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/TriliumThemes" class="repo-name" target="_blank">
+          Abourass/TriliumThemes
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 24</span>
+          <span class="badge badge-forks">🍴 8</span>
+          <span class="badge badge-commits">📝 42 commits</span>
+          <span class="badge badge-views">👀 24 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+3,154</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-1,853</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">5,007</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/delta-green-server" class="repo-name" target="_blank">
+          Abourass/delta-green-server
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 9</span>
+          <span class="badge badge-forks">🍴 9</span>
+          <span class="badge badge-commits">📝 50 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+33,130</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-34,940</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">68,070</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Svelte</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 56.38579592089573%"></div>
+              </div>
+              <div class="language-percent">56.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 36.773883821411424%"></div>
+              </div>
+              <div class="language-percent">36.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 2.973378966441082%"></div>
+              </div>
+              <div class="language-percent">3.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 2.4716212658541497%"></div>
+              </div>
+              <div class="language-percent">2.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.3953200253976121%"></div>
+              </div>
+              <div class="language-percent">1.4%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/anandamideio/pancake" class="repo-name" target="_blank">
+          anandamideio/pancake
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 3</span>
+          <span class="badge badge-forks">🍴 1</span>
+          <span class="badge badge-commits">📝 53 commits</span>
+          <span class="badge badge-views">👀 3 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+23,977</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-11,647</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">35,624</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 67.77485987535766%"></div>
+              </div>
+              <div class="language-percent">67.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 32.22514012464234%"></div>
+              </div>
+              <div class="language-percent">32.2%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/Zillow-Neighborhoods-for-the-entire-US" class="repo-name" target="_blank">
+          Abourass/Zillow-Neighborhoods-for-the-entire-US
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 3</span>
+          <span class="badge badge-forks">🍴 1</span>
+          <span class="badge badge-commits">📝 3 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+17,126</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-51</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">17,177</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/svelte-idle" class="repo-name" target="_blank">
+          Abourass/svelte-idle
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 2</span>
+          
+          <span class="badge badge-commits">📝 20 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+5,665</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-1,534</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">7,199</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Svelte</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 70.18029620090148%"></div>
+              </div>
+              <div class="language-percent">70.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 16.25885383129427%"></div>
+              </div>
+              <div class="language-percent">16.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 6.3940759819703805%"></div>
+              </div>
+              <div class="language-percent">6.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 6.297488731487444%"></div>
+              </div>
+              <div class="language-percent">6.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.8692852543464262%"></div>
+              </div>
+              <div class="language-percent">0.9%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/Veritas" class="repo-name" target="_blank">
+          AssetVal/Veritas
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 2</span>
+          <span class="badge badge-forks">🍴 1</span>
+          <span class="badge badge-commits">📝 8683 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 77.30734488021803%"></div>
+              </div>
+              <div class="language-percent">77.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">SCSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 12.086450577045065%"></div>
+              </div>
+              <div class="language-percent">12.1%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Handlebars</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 6.324257046367686%"></div>
+              </div>
+              <div class="language-percent">6.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 3.7305712788940224%"></div>
+              </div>
+              <div class="language-percent">3.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.3734478908603165%"></div>
+              </div>
+              <div class="language-percent">0.4%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/guess-your-number" class="repo-name" target="_blank">
+          Abourass/guess-your-number
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 2</span>
+          <span class="badge badge-forks">🍴 1</span>
+          <span class="badge badge-commits">📝 12 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+1,707</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-828</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">2,535</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/cabbie" class="repo-name" target="_blank">
+          Abourass/cabbie
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 2</span>
+          
+          <span class="badge badge-commits">📝 22 commits</span>
+          <span class="badge badge-views">👀 2 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+2,386</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-456</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">2,842</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 50.103718243258314%"></div>
+              </div>
+              <div class="language-percent">50.1%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Shell</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 22.708719023933263%"></div>
+              </div>
+              <div class="language-percent">22.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Handlebars</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 17.154774384939664%"></div>
+              </div>
+              <div class="language-percent">17.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 9.852117859612338%"></div>
+              </div>
+              <div class="language-percent">9.9%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Procfile</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.18067048825641827%"></div>
+              </div>
+              <div class="language-percent">0.2%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/simpleIdle" class="repo-name" target="_blank">
+          Abourass/simpleIdle
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 2</span>
+          
+          <span class="badge badge-commits">📝 181 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+7,087</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-2,952</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">10,039</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 79.46984091501807%"></div>
+              </div>
+              <div class="language-percent">79.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 16.53068067508662%"></div>
+              </div>
+              <div class="language-percent">16.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 3.9994784098953096%"></div>
+              </div>
+              <div class="language-percent">4.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/nodeJS-Server-Examples" class="repo-name" target="_blank">
+          Abourass/nodeJS-Server-Examples
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 2</span>
+          <span class="badge badge-forks">🍴 1</span>
+          <span class="badge badge-commits">📝 18 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+863</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-150</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">1,013</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/Abourass" class="repo-name" target="_blank">
+          Abourass/Abourass
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 33 commits</span>
+          <span class="badge badge-views">👀 3 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+365</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-284</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">649</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/Hub" class="repo-name" target="_blank">
+          AssetVal/Hub
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 1116 commits</span>
+          <span class="badge badge-views">👀 24 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+1,385,518</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-775,664</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">2,161,182</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 76.13102929956429%"></div>
+              </div>
+              <div class="language-percent">76.1%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Handlebars</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 12.323854924693043%"></div>
+              </div>
+              <div class="language-percent">12.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">SCSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 8.69966949133911%"></div>
+              </div>
+              <div class="language-percent">8.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.7052565452358792%"></div>
+              </div>
+              <div class="language-percent">1.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.021663828966043%"></div>
+              </div>
+              <div class="language-percent">1.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/uppy-editor-fullscreen" class="repo-name" target="_blank">
+          Abourass/uppy-editor-fullscreen
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 2 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+1,044</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">1,044</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 66.35431400282886%"></div>
+              </div>
+              <div class="language-percent">66.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">SCSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 33.64568599717114%"></div>
+              </div>
+              <div class="language-percent">33.6%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/svelte-math" class="repo-name" target="_blank">
+          Abourass/svelte-math
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 18 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+6,443</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-1,746</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">8,189</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Svelte</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 45.284730526576226%"></div>
+              </div>
+              <div class="language-percent">45.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 42.18382747103212%"></div>
+              </div>
+              <div class="language-percent">42.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 4.4328068945610495%"></div>
+              </div>
+              <div class="language-percent">4.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 4.337965444723929%"></div>
+              </div>
+              <div class="language-percent">4.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 3.7606696631066763%"></div>
+              </div>
+              <div class="language-percent">3.8%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/US-Interactive-Map-With-Counties-and-Neighberhoods" class="repo-name" target="_blank">
+          Abourass/US-Interactive-Map-With-Counties-and-Neighberhoods
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 14 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+28,471</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-21,453</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">49,924</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Handlebars</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 91.26775381378222%"></div>
+              </div>
+              <div class="language-percent">91.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 8.73224618621778%"></div>
+              </div>
+              <div class="language-percent">8.7%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/expanse" class="repo-name" target="_blank">
+          Abourass/expanse
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 89 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+30,403</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-20,159</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">50,562</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 66.77443764187935%"></div>
+              </div>
+              <div class="language-percent">66.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Handlebars</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 25.952168031001356%"></div>
+              </div>
+              <div class="language-percent">26.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 3.2400082547981013%"></div>
+              </div>
+              <div class="language-percent">3.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Vue</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 2.7263763729334345%"></div>
+              </div>
+              <div class="language-percent">2.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.1212767421063494%"></div>
+              </div>
+              <div class="language-percent">1.1%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/dogAgeCalculator" class="repo-name" target="_blank">
+          Abourass/dogAgeCalculator
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 2 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+3,956</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-3,801</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">7,757</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C++</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 77.98013245033113%"></div>
+              </div>
+              <div class="language-percent">78.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CMake</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 22.019867549668874%"></div>
+              </div>
+              <div class="language-percent">22.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/binaryBox" class="repo-name" target="_blank">
+          Abourass/binaryBox
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 30 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+12,654</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-11,506</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">24,160</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 91.28533658735%"></div>
+              </div>
+              <div class="language-percent">91.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 8.714663412649989%"></div>
+              </div>
+              <div class="language-percent">8.7%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/sudoCab" class="repo-name" target="_blank">
+          Abourass/sudoCab
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 50 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+1,185</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-384</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">1,569</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Shell</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 97.24357324114597%"></div>
+              </div>
+              <div class="language-percent">97.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Python</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 2.7564267588540328%"></div>
+              </div>
+              <div class="language-percent">2.8%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/wondershade-system-for-foundry" class="repo-name" target="_blank">
+          Abourass/wondershade-system-for-foundry
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          <span class="badge badge-forks">🍴 1</span>
+          <span class="badge badge-commits">📝 229 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+597,857</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-16,193</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">614,050</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 61.54731729732769%"></div>
+              </div>
+              <div class="language-percent">61.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Handlebars</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 28.95647009075555%"></div>
+              </div>
+              <div class="language-percent">29.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Less</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 9.496212611916768%"></div>
+              </div>
+              <div class="language-percent">9.5%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/DND_World_Builder" class="repo-name" target="_blank">
+          Abourass/DND_World_Builder
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 27 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+6,081</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-2,749</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">8,830</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 95.54934453209239%"></div>
+              </div>
+              <div class="language-percent">95.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 4.450655467907611%"></div>
+              </div>
+              <div class="language-percent">4.5%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/modern-triangles" class="repo-name" target="_blank">
+          Abourass/modern-triangles
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 4 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+2,200</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-1,129</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">3,329</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 87.86916786916788%"></div>
+              </div>
+              <div class="language-percent">87.9%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 12.13083213083213%"></div>
+              </div>
+              <div class="language-percent">12.1%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/wondershade-classic" class="repo-name" target="_blank">
+          Abourass/wondershade-classic
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 44 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+10,837</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-5,404</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">16,241</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Pug</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 43.380595539741584%"></div>
+              </div>
+              <div class="language-percent">43.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">SCSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 36.645281866048485%"></div>
+              </div>
+              <div class="language-percent">36.6%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 19.97412259420993%"></div>
+              </div>
+              <div class="language-percent">20.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/Wondershade-Character-Sheets" class="repo-name" target="_blank">
+          Abourass/Wondershade-Character-Sheets
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 6 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+2,258</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-114</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">2,372</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Pug</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 83.94062078272604%"></div>
+              </div>
+              <div class="language-percent">83.9%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 16.059379217273953%"></div>
+              </div>
+              <div class="language-percent">16.1%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/fuzzy-lamp" class="repo-name" target="_blank">
+          Abourass/fuzzy-lamp
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 36 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+33,533</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-10,503</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">44,036</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 37.8298250815298%"></div>
+              </div>
+              <div class="language-percent">37.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 37.67311846173394%"></div>
+              </div>
+              <div class="language-percent">37.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 12.739824657998392%"></div>
+              </div>
+              <div class="language-percent">12.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 11.757231798737875%"></div>
+              </div>
+              <div class="language-percent">11.8%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/koapression" class="repo-name" target="_blank">
+          Abourass/koapression
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 5 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+7,973</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-186</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">8,159</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/micro" class="repo-name" target="_blank">
+          Abourass/micro
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 54 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+2,276</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-931</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">3,207</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 66.03993654940749%"></div>
+              </div>
+              <div class="language-percent">66.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 33.960063450592514%"></div>
+              </div>
+              <div class="language-percent">34.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/musical-couscous" class="repo-name" target="_blank">
+          Abourass/musical-couscous
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 4 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+267</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-74</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">341</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 55.01214013180714%"></div>
+              </div>
+              <div class="language-percent">55.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 23.72528616024974%"></div>
+              </div>
+              <div class="language-percent">23.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 21.262573707943115%"></div>
+              </div>
+              <div class="language-percent">21.3%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RichardGo9000/WordleClone" class="repo-name" target="_blank">
+          RichardGo9000/WordleClone
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/veritas-snapshot" class="repo-name" target="_blank">
+          AssetVal/veritas-snapshot
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          <span class="badge badge-commits">📝 362 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+97,875</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-78,520</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">176,395</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 47.2757780610187%"></div>
+              </div>
+              <div class="language-percent">47.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Svelte</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 41.50223455575095%"></div>
+              </div>
+              <div class="language-percent">41.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 9.31333795840661%"></div>
+              </div>
+              <div class="language-percent">9.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.3536406318065213%"></div>
+              </div>
+              <div class="language-percent">1.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.555008793017215%"></div>
+              </div>
+              <div class="language-percent">0.6%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RajahQar/Javascript-Fundamentals" class="repo-name" target="_blank">
+          RajahQar/Javascript-Fundamentals
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 51.74024457491323%"></div>
+              </div>
+              <div class="language-percent">51.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 43.54341691264718%"></div>
+              </div>
+              <div class="language-percent">43.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 4.716338512439586%"></div>
+              </div>
+              <div class="language-percent">4.7%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RajahQar/CoffeeMath" class="repo-name" target="_blank">
+          RajahQar/CoffeeMath
+        </a>
+        <div class="repo-badges">
+          <span class="badge badge-stars">⭐ 1</span>
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">SCSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 44.330736326676295%"></div>
+              </div>
+              <div class="language-percent">44.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Less</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 43.76857826433698%"></div>
+              </div>
+              <div class="language-percent">43.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 5.753754691621726%"></div>
+              </div>
+              <div class="language-percent">5.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 5.066672615429231%"></div>
+              </div>
+              <div class="language-percent">5.1%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.0802581019357647%"></div>
+              </div>
+              <div class="language-percent">1.1%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/SampleOS" class="repo-name" target="_blank">
+          Abourass/SampleOS
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 118 commits</span>
+          <span class="badge badge-views">👀 16 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+636,865</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-43,709</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">680,574</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C#</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 80.6961443638857%"></div>
+              </div>
+              <div class="language-percent">80.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">ShaderLab</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 14.132080701396083%"></div>
+              </div>
+              <div class="language-percent">14.1%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HLSL</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 2.913682183547535%"></div>
+              </div>
+              <div class="language-percent">2.9%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Mathematica</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 2.2580927511706954%"></div>
+              </div>
+              <div class="language-percent">2.3%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/Palettes" class="repo-name" target="_blank">
+          Abourass/Palettes
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 32 commits</span>
+          <span class="badge badge-views">👀 114 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+18,349</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-3,064</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">21,413</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 99.35856851421957%"></div>
+              </div>
+              <div class="language-percent">99.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.40545120835971327%"></div>
+              </div>
+              <div class="language-percent">0.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.2359802774207164%"></div>
+              </div>
+              <div class="language-percent">0.2%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RichardGo9000/TSLMWorldTest15" class="repo-name" target="_blank">
+          RichardGo9000/TSLMWorldTest15
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">ShaderLab</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 65.18409861656887%"></div>
+              </div>
+              <div class="language-percent">65.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">C#</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 21.376567798891102%"></div>
+              </div>
+              <div class="language-percent">21.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HLSL</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 13.439333584540023%"></div>
+              </div>
+              <div class="language-percent">13.4%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/TheModernFarm" class="repo-name" target="_blank">
+          Abourass/TheModernFarm
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 44 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+8,127</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-1,450</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">9,577</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">MDX</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 56.63471823158071%"></div>
+              </div>
+              <div class="language-percent">56.6%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Astro</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 36.213586124452085%"></div>
+              </div>
+              <div class="language-percent">36.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 4.5930244751578195%"></div>
+              </div>
+              <div class="language-percent">4.6%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.7375893961955495%"></div>
+              </div>
+              <div class="language-percent">1.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.8210817726138294%"></div>
+              </div>
+              <div class="language-percent">0.8%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/chakrimsc/Legacy-WebApp" class="repo-name" target="_blank">
+          chakrimsc/Legacy-WebApp
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">ASP.NET</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 52.692921866260754%"></div>
+              </div>
+              <div class="language-percent">52.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Visual Basic .NET</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 43.47460332743793%"></div>
+              </div>
+              <div class="language-percent">43.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.9058393263081082%"></div>
+              </div>
+              <div class="language-percent">1.9%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.7910030563437869%"></div>
+              </div>
+              <div class="language-percent">1.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.12859368444523986%"></div>
+              </div>
+              <div class="language-percent">0.1%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/pixels" class="repo-name" target="_blank">
+          Abourass/pixels
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 12 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+5,212</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-547</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">5,759</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 81.18688743688743%"></div>
+              </div>
+              <div class="language-percent">81.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 14.63561776061776%"></div>
+              </div>
+              <div class="language-percent">14.6%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 4.177494802494802%"></div>
+              </div>
+              <div class="language-percent">4.2%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/wicked-trails" class="repo-name" target="_blank">
+          Abourass/wicked-trails
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+17,283</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">17,283</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C#</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/Legacy-DB-Info" class="repo-name" target="_blank">
+          AssetVal/Legacy-DB-Info
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 3 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+4</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-1</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">5</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RichardGo9000/DustyTrailsC" class="repo-name" target="_blank">
+          RichardGo9000/DustyTrailsC
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C#</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/vertias-socks" class="repo-name" target="_blank">
+          AssetVal/vertias-socks
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 105 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+83,559</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-67,482</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">151,041</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 93.18344551052556%"></div>
+              </div>
+              <div class="language-percent">93.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 6.816554489474439%"></div>
+              </div>
+              <div class="language-percent">6.8%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/HeatMap" class="repo-name" target="_blank">
+          AssetVal/HeatMap
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 45 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+22,436</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-6,594</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">29,030</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 94.39981819294275%"></div>
+              </div>
+              <div class="language-percent">94.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Python</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 3.9709108708383227%"></div>
+              </div>
+              <div class="language-percent">4.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.4186194900661673%"></div>
+              </div>
+              <div class="language-percent">1.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.21065144615277034%"></div>
+              </div>
+              <div class="language-percent">0.2%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/Cud" class="repo-name" target="_blank">
+          Abourass/Cud
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 3 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+7,906</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-747</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">8,653</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 98.29854522454143%"></div>
+              </div>
+              <div class="language-percent">98.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.9719586759434956%"></div>
+              </div>
+              <div class="language-percent">1.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.7294960995150749%"></div>
+              </div>
+              <div class="language-percent">0.7%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/VeriMail" class="repo-name" target="_blank">
+          AssetVal/VeriMail
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 65 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+18,348</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-14,677</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">33,025</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/memory-sack" class="repo-name" target="_blank">
+          AssetVal/memory-sack
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 15 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+6,282</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-3,240</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">9,522</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 67.20365685882928%"></div>
+              </div>
+              <div class="language-percent">67.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 32.79634314117072%"></div>
+              </div>
+              <div class="language-percent">32.8%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/nightjs" class="repo-name" target="_blank">
+          AssetVal/nightjs
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 7 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+3,409</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-1,110</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">4,519</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/Confs" class="repo-name" target="_blank">
+          AssetVal/Confs
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 11 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+582</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-4</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">586</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/Schema" class="repo-name" target="_blank">
+          AssetVal/Schema
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 81 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+49,571</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-38,145</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">87,716</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 91.94185038991046%"></div>
+              </div>
+              <div class="language-percent">91.9%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 8.058149610089535%"></div>
+              </div>
+              <div class="language-percent">8.1%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/iji" class="repo-name" target="_blank">
+          Abourass/iji
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 14 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+33,908</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-8,837</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">42,745</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C#</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/MagikIO/rune" class="repo-name" target="_blank">
+          MagikIO/rune
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 104 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+8,874</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-7,699</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">16,573</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 98.53177795655672%"></div>
+              </div>
+              <div class="language-percent">98.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.4682220434432824%"></div>
+              </div>
+              <div class="language-percent">1.5%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/state-switcher" class="repo-name" target="_blank">
+          AssetVal/state-switcher
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 33 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+4,067</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-3,560</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">7,627</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 96.44514353126229%"></div>
+              </div>
+              <div class="language-percent">96.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 3.5548564687377113%"></div>
+              </div>
+              <div class="language-percent">3.6%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/anandamideio/FVTT-Types" class="repo-name" target="_blank">
+          anandamideio/FVTT-Types
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 4 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+1,140</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-1</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">1,141</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/anandamideio/entity" class="repo-name" target="_blank">
+          anandamideio/entity
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 15 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+4,769</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-1,223</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">5,992</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 97.01492537313433%"></div>
+              </div>
+              <div class="language-percent">97.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 2.9850746268656714%"></div>
+              </div>
+              <div class="language-percent">3.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/modern-svelte" class="repo-name" target="_blank">
+          Abourass/modern-svelte
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 6 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+4,881</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-278</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">5,159</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Svelte</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 65.03518621016842%"></div>
+              </div>
+              <div class="language-percent">65.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 15.845655096070214%"></div>
+              </div>
+              <div class="language-percent">15.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 14.888906460030046%"></div>
+              </div>
+              <div class="language-percent">14.9%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 4.23025223373132%"></div>
+              </div>
+              <div class="language-percent">4.2%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/toCase" class="repo-name" target="_blank">
+          AssetVal/toCase
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 7 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+941</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-9</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">950</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/gjcoding.github.io" class="repo-name" target="_blank">
+          Abourass/gjcoding.github.io
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 8 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+732</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-150</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">882</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Ruby</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 76.44744238336145%"></div>
+              </div>
+              <div class="language-percent">76.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 23.552557616638563%"></div>
+              </div>
+              <div class="language-percent">23.6%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/Cypress-Testing" class="repo-name" target="_blank">
+          AssetVal/Cypress-Testing
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+396</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">396</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/riptide" class="repo-name" target="_blank">
+          Abourass/riptide
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 2 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+10,040</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">10,040</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 96.6799911170331%"></div>
+              </div>
+              <div class="language-percent">96.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 2.6759937819231623%"></div>
+              </div>
+              <div class="language-percent">2.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.6440151010437486%"></div>
+              </div>
+              <div class="language-percent">0.6%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/ModernMixSoilCalc" class="repo-name" target="_blank">
+          Abourass/ModernMixSoilCalc
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 55 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+23,481</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-13,064</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">36,545</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 86.65981202462399%"></div>
+              </div>
+              <div class="language-percent">86.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 9.25244855722967%"></div>
+              </div>
+              <div class="language-percent">9.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 4.087739418146347%"></div>
+              </div>
+              <div class="language-percent">4.1%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/the_modern_farm" class="repo-name" target="_blank">
+          Abourass/the_modern_farm
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/shared-heros-pf2e" class="repo-name" target="_blank">
+          Abourass/shared-heros-pf2e
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+1</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">1</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/Narchys_Abomination_Vault_Maps_fix" class="repo-name" target="_blank">
+          Abourass/Narchys_Abomination_Vault_Maps_fix
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+41</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-9</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">50</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/Narchys_Troubles_in_Otari_Maps_fix" class="repo-name" target="_blank">
+          Abourass/Narchys_Troubles_in_Otari_Maps_fix
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 3 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+32</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-10</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">42</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/av-accessories-book1" class="repo-name" target="_blank">
+          Abourass/av-accessories-book1
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 3 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+42</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-14</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">56</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/sv2" class="repo-name" target="_blank">
+          Abourass/sv2
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+18,836</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">18,836</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 82.35944333035347%"></div>
+              </div>
+              <div class="language-percent">82.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Svelte</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 14.041774384498297%"></div>
+              </div>
+              <div class="language-percent">14.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">SCSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.2811375003020125%"></div>
+              </div>
+              <div class="language-percent">1.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.2062383725144363%"></div>
+              </div>
+              <div class="language-percent">1.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.9126821136050641%"></div>
+              </div>
+              <div class="language-percent">0.9%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/TTRPG-obsidian-vault" class="repo-name" target="_blank">
+          Abourass/TTRPG-obsidian-vault
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 7 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+66,877</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-633</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">67,510</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/Veritas-Documentation-Vault" class="repo-name" target="_blank">
+          AssetVal/Veritas-Documentation-Vault
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 22 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+92,319</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-13,252</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">105,571</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/veritash-obsidian-notes" class="repo-name" target="_blank">
+          Abourass/veritash-obsidian-notes
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/generator-modern-node" class="repo-name" target="_blank">
+          Abourass/generator-modern-node
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 6 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+9,781</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-1,198</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">10,979</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 95.70232085953583%"></div>
+              </div>
+              <div class="language-percent">95.7%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 4.297679140464171%"></div>
+              </div>
+              <div class="language-percent">4.3%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/VertiasBot" class="repo-name" target="_blank">
+          Abourass/VertiasBot
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 39 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+21,167</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-10,160</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">31,327</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/scholarIO" class="repo-name" target="_blank">
+          Abourass/scholarIO
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 47 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+37,407</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-10,122</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">47,529</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 79.83037837701804%"></div>
+              </div>
+              <div class="language-percent">79.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 13.3520403669263%"></div>
+              </div>
+              <div class="language-percent">13.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 6.817581256055669%"></div>
+              </div>
+              <div class="language-percent">6.8%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/Notify" class="repo-name" target="_blank">
+          AssetVal/Notify
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 33 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+22,385</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-9,693</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">32,078</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 92.29052858351928%"></div>
+              </div>
+              <div class="language-percent">92.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 7.709471416480726%"></div>
+              </div>
+              <div class="language-percent">7.7%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RichardGo9000/TSLM" class="repo-name" target="_blank">
+          RichardGo9000/TSLM
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          <span class="badge badge-views">👀 2 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/MiltonBradley/forum_tools" class="repo-name" target="_blank">
+          MiltonBradley/forum_tools
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/is-user-online" class="repo-name" target="_blank">
+          AssetVal/is-user-online
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 26 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+8,995</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-7,555</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">16,550</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/population-maps" class="repo-name" target="_blank">
+          AssetVal/population-maps
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 13 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+34,353</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-795</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">35,148</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 98.82621576503782%"></div>
+              </div>
+              <div class="language-percent">98.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Svelte</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.0328116624200487%"></div>
+              </div>
+              <div class="language-percent">1.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.08766361653880744%"></div>
+              </div>
+              <div class="language-percent">0.1%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.04017915758028674%"></div>
+              </div>
+              <div class="language-percent">0.0%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.013129798423042105%"></div>
+              </div>
+              <div class="language-percent">0.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/dendron-vault" class="repo-name" target="_blank">
+          Abourass/dendron-vault
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 3 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+799</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-7</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">806</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/dungeon_dunce" class="repo-name" target="_blank">
+          Abourass/dungeon_dunce
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 15 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+4,066</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-491</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">4,557</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Rust</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 96.4685147308412%"></div>
+              </div>
+              <div class="language-percent">96.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">GLSL</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 3.531485269158797%"></div>
+              </div>
+              <div class="language-percent">3.5%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/canvasEngine" class="repo-name" target="_blank">
+          Abourass/canvasEngine
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 19 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+24,306</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-893</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">25,199</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 83.5539710566111%"></div>
+              </div>
+              <div class="language-percent">83.6%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 15.2599075771528%"></div>
+              </div>
+              <div class="language-percent">15.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.186121366236092%"></div>
+              </div>
+              <div class="language-percent">1.2%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/local-time" class="repo-name" target="_blank">
+          AssetVal/local-time
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 8 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+168</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-48</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">216</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 52.317880794701985%"></div>
+              </div>
+              <div class="language-percent">52.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 47.682119205298015%"></div>
+              </div>
+              <div class="language-percent">47.7%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/customIcons" class="repo-name" target="_blank">
+          AssetVal/customIcons
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 6 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+12,395</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-5,588</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">17,983</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/writing-ideas" class="repo-name" target="_blank">
+          Abourass/writing-ideas
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 119 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+5,314</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-2,174</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">7,488</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RichardGo9000/CelestialInvasion" class="repo-name" target="_blank">
+          RichardGo9000/CelestialInvasion
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 99.84514677820884%"></div>
+              </div>
+              <div class="language-percent">99.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.07953698204288982%"></div>
+              </div>
+              <div class="language-percent">0.1%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.0753162397482719%"></div>
+              </div>
+              <div class="language-percent">0.1%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RajahQar/Canvas" class="repo-name" target="_blank">
+          RajahQar/Canvas
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/zookeeper" class="repo-name" target="_blank">
+          Abourass/zookeeper
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 2 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+3,105</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">3,105</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 70.43499145274995%"></div>
+              </div>
+              <div class="language-percent">70.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Python</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 29.565008547250045%"></div>
+              </div>
+              <div class="language-percent">29.6%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/js-decorators" class="repo-name" target="_blank">
+          Abourass/js-decorators
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 6 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+737</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-255</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">992</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">TypeScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RajahQar/vanillaJSMeditation" class="repo-name" target="_blank">
+          RajahQar/vanillaJSMeditation
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 39.8228455434582%"></div>
+              </div>
+              <div class="language-percent">39.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 36.26130282339915%"></div>
+              </div>
+              <div class="language-percent">36.3%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 23.915851633142644%"></div>
+              </div>
+              <div class="language-percent">23.9%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/learningErlang" class="repo-name" target="_blank">
+          Abourass/learningErlang
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 2 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+53</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-15</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">68</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Erlang</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/learning-c-plus-plus" class="repo-name" target="_blank">
+          Abourass/learning-c-plus-plus
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+208</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">208</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C++</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 92.93478260869566%"></div>
+              </div>
+              <div class="language-percent">92.9%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CMake</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 7.065217391304348%"></div>
+              </div>
+              <div class="language-percent">7.1%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/parser-combinator" class="repo-name" target="_blank">
+          Abourass/parser-combinator
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 2 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+735</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-230</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">965</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/ASCII-bash" class="repo-name" target="_blank">
+          Abourass/ASCII-bash
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+166</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">166</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C++</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 87.17105263157895%"></div>
+              </div>
+              <div class="language-percent">87.2%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CMake</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 12.828947368421053%"></div>
+              </div>
+              <div class="language-percent">12.8%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/delaunayTriangulation" class="repo-name" target="_blank">
+          Abourass/delaunayTriangulation
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+284</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">284</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 95.54299237444123%"></div>
+              </div>
+              <div class="language-percent">95.5%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 3.4446489613463056%"></div>
+              </div>
+              <div class="language-percent">3.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CSS</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 1.0123586642124638%"></div>
+              </div>
+              <div class="language-percent">1.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/magic-8ball" class="repo-name" target="_blank">
+          Abourass/magic-8ball
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+207</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">207</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C++</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 93.3585313174946%"></div>
+              </div>
+              <div class="language-percent">93.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CMake</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 6.6414686825053995%"></div>
+              </div>
+              <div class="language-percent">6.6%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/piggy-converter" class="repo-name" target="_blank">
+          Abourass/piggy-converter
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+156</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">156</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C++</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 86.8335146898803%"></div>
+              </div>
+              <div class="language-percent">86.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CMake</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 13.166485310119697%"></div>
+              </div>
+              <div class="language-percent">13.2%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/space-weight" class="repo-name" target="_blank">
+          Abourass/space-weight
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+168</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">168</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C++</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 89.87854251012146%"></div>
+              </div>
+              <div class="language-percent">89.9%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CMake</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 10.121457489878543%"></div>
+              </div>
+              <div class="language-percent">10.1%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/quadratic" class="repo-name" target="_blank">
+          Abourass/quadratic
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          <span class="badge badge-views">👀 1 views</span>
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+173</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">173</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">C++</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 79.76190476190477%"></div>
+              </div>
+              <div class="language-percent">79.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">CMake</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 20.238095238095237%"></div>
+              </div>
+              <div class="language-percent">20.2%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/AssetVal/android-snapshot-update" class="repo-name" target="_blank">
+          AssetVal/android-snapshot-update
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 3 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+168</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-131</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">299</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Java</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/avm-snapshot-app-android" class="repo-name" target="_blank">
+          Abourass/avm-snapshot-app-android
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 1 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+8,136</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">8,136</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Java</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/modLint" class="repo-name" target="_blank">
+          Abourass/modLint
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 11 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+338</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-143</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">481</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RockyMtGQ/SnapShot-Android-app" class="repo-name" target="_blank">
+          RockyMtGQ/SnapShot-Android-app
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Java</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 100%"></div>
+              </div>
+              <div class="language-percent">100.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RockyMtGQ/SnapShot-iOS-app" class="repo-name" target="_blank">
+          RockyMtGQ/SnapShot-iOS-app
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">Objective-C</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 98.37512975082967%"></div>
+              </div>
+              <div class="language-percent">98.4%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Swift</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.8261411981423092%"></div>
+              </div>
+              <div class="language-percent">0.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">C</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.7776521556912491%"></div>
+              </div>
+              <div class="language-percent">0.8%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">Ruby</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 0.021076895336767362%"></div>
+              </div>
+              <div class="language-percent">0.0%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/RajahQar/nodejsplayground" class="repo-name" target="_blank">
+          RajahQar/nodejsplayground
+        </a>
+        <div class="repo-badges">
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+
+      
+      <div class="languages">
+        <div class="languages-title">Languages</div>
+        <div class="language-bars">
+          
+            <div class="language-bar">
+              <div class="language-name">JavaScript</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 50.12492192379763%"></div>
+              </div>
+              <div class="language-percent">50.1%</div>
+            </div>
+          
+            <div class="language-bar">
+              <div class="language-name">HTML</div>
+              <div class="language-progress">
+                <div class="language-fill" style="width: 49.87507807620237%"></div>
+              </div>
+              <div class="language-percent">49.9%</div>
+            </div>
+          
+        </div>
+      </div>
+    
+    </div>
+  
+
+    <div class="repo-card">
+      <div class="repo-header">
+        <a href="https://github.com/Abourass/TrillyDB" class="repo-name" target="_blank">
+          Abourass/TrillyDB
+        </a>
+        <div class="repo-badges">
+          
+          
+          <span class="badge badge-commits">📝 7 commits</span>
+          
+        </div>
+      </div>
+
+      <div class="repo-stats">
+        <div class="stat-item">
+          <div class="stat-label">Lines Added</div>
+          <div class="stat-value additions">+11,613</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Lines Deleted</div>
+          <div class="stat-value deletions">-0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Changed</div>
+          <div class="stat-value">11,613</div>
+        </div>
+      </div>
+
+      
+    </div>
+  
+    </div>
+
+    <footer>
+      <p>Generated by <a href="https://github.com/jstrieb/github-stats" target="_blank">GitHub Stats</a></p>
+      <p>Last updated: October 27, 2025</p>
+    </footer>
+  </div>
+</body>
+</html>
