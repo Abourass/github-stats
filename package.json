@@ -22,7 +22,7 @@
     "svg",
     "github-actions"
   ],
-  "author": "Jacob Strieb",
+  "author": "Antonio Bourassa",
   "license": "GPL-3.0",
   "dependencies": {
     "@octokit/graphql": "^8.1.1",
@@ -49,7 +49,8 @@
       "RockyMtGQ/SnapShot-iOS-app",
       "RockyMtGQ/SnapShot-Android-app",
       "Abourass/avm-snapshot-app-android",
-      "AssetVal/android-snapshot-update"
+      "AssetVal/android-snapshot-update",
+      "Abourass/foundry-ai"
     ],
     "extra-stats": true
   }
